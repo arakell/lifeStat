@@ -1,0 +1,7 @@
+#Каталоги
+src/
+node_modules/
+other/
+
+#Файлы
+*.txt

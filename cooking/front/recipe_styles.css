@@ -1,0 +1,87 @@
+
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'FontRoboto', 'Arial', sans-serif;
+}
+
+.sidebar {
+  width: 20vw;
+  height: 100vh;
+  background-color: #6aa2d3;
+  box-sizing: border-box;
+  position: fixed;
+}
+
+.header_sidebar{
+  margin-bottom: 50px;
+}
+
+.hamburger-menu {
+  width: 50px; /* Ширина кнопки */
+  height: 50px; /* Высота кнопки */
+  display: flex;
+  flex-direction: column;
+  cursor: pointer; /* Курсор в виде руки при наведении */
+  position: fixed; /* Фиксированное позиционирование */
+  top: 15px; /* Отступ от верхней границы */
+  left: 15px; /* Отступ от левой границы */
+}
+
+.bar {
+  width: 60%; /* Ширина полоски */
+  height: 3px; /* Высота полоски */
+  margin: 3px;
+  background-color: #fff; /* Цвет полоски */
+}
+
+.icon-plus {
+  position: absolute;
+  width: 50px; 
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white; 
+  font-size: 40px; 
+  cursor: pointer; 
+  right: 0;
+}
+
+.icon-plus::before {
+  content: "+"; 
+}
+
+.list_sidebar{
+  display: flex;
+  flex-direction: column;
+  margin-top: 60px;
+}
+
+.sidebar a {
+  color: #fff;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-left: 30px;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.sidebar a:hover {
+  background-color: #2980b9;
+}
+
+.sub_list {
+  color: #fff;
+  background-color: #5591c6;
+  box-sizing: border-box;
+  padding-left: 60px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.sub_list:hover {
+  color: #000000;
+}
+

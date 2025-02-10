@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Рецепты</title>
+  <link rel="stylesheet" href="recipe_styles.css">
+  <link rel="stylesheet" href="recipe_styles_content.css">
+  <link rel="shortcut icon" href="src/favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+
+  <div class="sidebar">
+    
+    <div class = "header_sidebar">
+      <div class="hamburger-menu" onclick="toggleMenu()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+      <div id="iconPlus" class="icon-plus"></div>
+    </div>
+    
+    <div class = "list_sidebar">
+      <a id="breakfasts">Завтраки</a>
+      <div id="breakfasts_list" class="list"></div>
+
+      <a id="soups">Супы</a>
+      <div id="soups_list" class="list"></div>
+
+      <a id="main_course">Горячее</a>
+      <div id="main_course_list" class="list"></div>
+
+      <a id="salads">Салаты</a>
+      <div id="salads_list" class="list"></div>
+
+      <a id="sauces">Соусы</a>
+      <div id="sauces_list" class="list"></div>
+
+      <a id="plans">Планы</a>
+      <div id="plans_list" class="list"></div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class = "tutorials_hidden" id="tutorials">
+      <h1>Оладьи</h1>
+      <p>Смешай и помешай</p>
+    </div>
+
+    <div class = "addForm_hidden" id="addForm">
+      <input type="text" id="title" class="title" placeholder="Название">
+      <textarea  id="recipe" class="recipe" placeholder="Рецепт" rows="5" cols="30"></textarea>
+
+      <div class = "category_and_button">
+        <div class="form-container">
+          <input type="text" id="category" placeholder="Категория">
+          <div id="dropdown" class="dropdown">
+              <div class="option">Завтраки</div>
+              <div class="option">Супы</div>
+              <div class="option">Горячее</div>
+              <div class="option">Салаты</div>
+              <div class="option">Соусы</div>
+              <div class="option">Планы</div>
+          </div>
+        </div>
+        <button class = "addRecipeButton" id="addRecipe">Добавить</button>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+  <script src="recipe_web.js"></script>
+  <script type="module" src="recipe_js.js"></script>
+  
+
+</body>
+
+</html>
