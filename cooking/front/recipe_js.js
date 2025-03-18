@@ -1,188 +1,138 @@
-/* Для взаимодействий с фронтом */
+/************************************************************
+ *************** Для взаимодействий с фронтом ***************
+ ************************************************************/
 
 import { addRecipe_web, getRecipesByCat_web } from './recipe_web.js';
 
-/* Список категорий блюд */
+// Список категорий блюд 
 const dishesMap = new Map();
-dishesMap.set("Завтраки", 1);
-dishesMap.set("Супы", 2);
-dishesMap.set("Горячее", 3);
-dishesMap.set("Салаты", 4);
-dishesMap.set("Соусы", 5);
-dishesMap.set("Планы", 6);
+dishesMap.set('Завтраки', 1);
+dishesMap.set('breakfasts', 1);
+dishesMap.set('Супы', 2);
+dishesMap.set('soups', 2);
+dishesMap.set('Горячее', 3);
+dishesMap.set('main_course', 3);
+dishesMap.set('Салаты', 4);
+dishesMap.set('salads', 4);
+dishesMap.set('Соусы', 5);
+dishesMap.set('sauces', 5);
+dishesMap.set('Планы', 6);
+dishesMap.set('plans', 6);
 
-
-var breakfasts =  ["Оладьи", "Яичница", "Бутерброд"];
-var soups = ["Чечевичный суп", "Суп из тыквы"];
-var main_course = ["Котлеты", "Макароны с соусом", "Рыба на гриле"];
-var salads = ["Огуречный салат", "Цезарь", "Греческий салат"];
-var sauces = ["Чесночный соус", "Соевый соус", "Томатный соус"];
-var plans = ["Рататуй", "Бешбармак"];
-
-/* Смена формы с "Добавления" на "Просмотр рецепта" */
+// Смена формы с "Добавления" на "Просмотр рецепта"
 function openForm(){
 
-    if ( document.getElementById("tutorials").style.display != "block") {
-        document.getElementById("tutorials").style.display = "block";
-        document.getElementById("addForm").style.display = "none";
+    if ( document.getElementById('tutorials').style.display != 'block') {
+        document.getElementById('tutorials').style.display = 'block';
+        document.getElementById('addForm').style.display = 'none';
         return;
     }
 
-    document.getElementById("tutorials").style.display = "none";
-    document.getElementById("addForm").style.display = "flex";
+    document.getElementById('tutorials').style.display = 'none';
+    document.getElementById('addForm').style.display = 'flex';
     
 }
 
-/* При нажатии на категорию раскрывает список названий блюд */
+//При нажатии на категорию раскрывает список названий блюд
 async function showList(category) {
-    console.log('here' + category); 
-    var listDiv = document.getElementById(category + "_list");
-    if (listDiv.innerHTML != "") {
-        listDiv.innerHTML = "";
-        document.getElementById(category).style.backgroundColor = "#6aa2d3";
-        document.getElementById(category).style.removeProperty("background-color");
+    console.log('Раскрываем категорию ' + category); 
+    var listDiv = document.getElementById(category + '_list');
+    if (listDiv.innerHTML != '') {
+        listDiv.innerHTML = '';
+        document.getElementById(category).style.backgroundColor = '#6aa2d3';
+        document.getElementById(category).style.removeProperty('background-color');
         return;
     }
-    document.getElementById(category).style.backgroundColor = "#2980b9";
 
-    var items;
-    var name;
-    /* Вместо этого из recipe_web посылаем веб запрос */
-    switch(category) {
-        case "breakfasts":
-            name = 'Завтраки';
-            break;
-        case "soups":
-            name = 'Супы';
-            break;
-        case "main_course":
-            name = 'Горячее';
-            break;
-        case "salads":
-            name = 'Салаты';
-            break;
-        case "sauces":
-            name = 'Соусы';
-            break;
-        case "plans":
-            name = 'Планы';
-            break;
-        default:
-            name = '';
-    }
-
-    items = await getRecipesByCat_web(dishesMap.get(name));
+    var items = await getRecipesByCat_web(dishesMap.get(category));
     if(items == 'Неизвестная ошибка'){
-        alert("Что-то пошло не так");
+        alert('Запрос завершился ошибкой');
         return;
+    }
+
+    if(items != undefined && items.length != 0){
+        document.getElementById(category).style.backgroundColor = '#2980b9';
     }
 
     items.forEach(item => {
-        var listItem = document.createElement("div");
+        var listItem = document.createElement('div');
         listItem.textContent = item.name;
-        listItem.className = "sub_list";
+        listItem.className = 'sub_list';
         listDiv.appendChild(listItem);
     });
     
 }
 
 
-/* На форме добавления нового рецепта раскрывает при нажатии выбор категории */
+// Выбор категории при добавлении нового рецепта
 function dropList(){
 
-    const dropdown = document.getElementById("dropdown");
-    const options = document.querySelectorAll(".option");
+    const dropdown = document.getElementById('dropdown');
+    const options = document.querySelectorAll('.option');
 
-    if (dropdown.style.display == "block"){
-        dropdown.style.display = "none";
+    if (dropdown.style.display == 'block'){
+        dropdown.style.display = 'none';
         return;
     }
-    dropdown.style.display = "block";
+    dropdown.style.display = 'block';
 
     options.forEach(option => {
-        option.addEventListener("click", () => {
-            document.getElementById("category").value = option.textContent;
+        option.addEventListener('click', () => {
+            document.getElementById('category').value = option.textContent;
             
-            dropdown.style.display = "none";
+            dropdown.style.display = 'none';
         });
     });
 }
 
-/* При нажатии на добавить рецепт посылает запрос к БД на добавление рецепта */
+// Добавление нового рецепта
 async function addRecipe(){
 
-    let title = document.getElementById("title").value;
-    let recipe = document.getElementById("recipe").value;
-    let category_id = dishesMap.get(document.getElementById("category").value);
+    console.log('Добавляем новый рецепт');
+    let title = document.getElementById('title').value;
+    let recipe = document.getElementById('recipe').value;
+    let category_id = dishesMap.get(document.getElementById('category').value);
 
     if (!title || !recipe || !category_id){
-        alert("Заполните поля");
+        alert('Заполните поля');
         return;
     }
 
     let resp = await addRecipe_web(title, recipe, category_id)
 
     if (resp == 'Успешно добавлено'){
-        document.getElementById("title").value = null;
-        document.getElementById("recipe").value = null;
-        document.getElementById("category").value = null;
+        document.getElementById('title').value = null;
+        document.getElementById('recipe').value = null;
+        document.getElementById('category').value = null;
     } 
     alert(resp);
 
 }
 
-/* Добавление обработчиков событий */
+// Добавление обработчиков событий 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('load page');
-    document.getElementById("iconPlus").addEventListener("click", () => openForm());
-    document.getElementById("category").addEventListener("click", () => dropList());
-    document.getElementById("addRecipe").addEventListener("click", () => addRecipe());
+    console.log('Загрузка страницы');
+    document.getElementById('iconPlus').addEventListener('click', () => openForm());
+    document.getElementById('category').addEventListener('click', () => dropList());
+    document.getElementById('addRecipe').addEventListener('click', () => addRecipe());
 
-    document.getElementById("breakfasts").addEventListener("click", ()  => showList("breakfasts"));
-    document.getElementById("soups").addEventListener("click", ()  => showList("soups"));
-    document.getElementById("main_course").addEventListener("click", ()  => showList("main_course"));
-    document.getElementById("salads").addEventListener("click", ()  => showList("salads"));
-    document.getElementById("sauces").addEventListener("click", ()  => showList("sauces"));
-    document.getElementById("plans").addEventListener("click", ()  => showList("plans"));
+    document.getElementById('breakfasts').addEventListener('click', ()  => showList('breakfasts'));
+    document.getElementById('soups').addEventListener('click', ()  => showList('soups'));
+    document.getElementById('main_course').addEventListener('click', ()  => showList('main_course'));
+    document.getElementById('salads').addEventListener('click', ()  => showList('salads'));
+    document.getElementById('sauces').addEventListener('click', ()  => showList('sauces'));
+    document.getElementById('plans').addEventListener('click', ()  => showList('plans'));
 });
 
-/* На форме добавления закрываем выпавший список выбора категории, если клик был вне поля ввода и списка*/
-document.addEventListener("click", (event) => {
-    const dropdown = document.getElementById("dropdown");
-    const categoryInput = document.getElementById("category");
+// Закрытие раскрытых списков
+document.addEventListener('click', (event) => {
+    const dropdown = document.getElementById('dropdown');
+    const categoryInput = document.getElementById('category');
   
     
     if (event.target !== categoryInput && !dropdown.contains(event.target)) {
-      dropdown.style.display = "none";
+      dropdown.style.display = 'none';
     }
   });
-
-/*
-
-категории заполнены сразу 
-при нажатии на категорию получаем id name category_id всех рецептов из этой категории
-при нажатии на рецепт получаем ещё content
-
-категории {
-    id:
-    name:
-}
-
-
-recipes{
-    id: 
-    name: 
-    content:
-    category_id:
-}
-
-нужные операции 
-зная категорию получить все рецепты
-зная название рецепта получить сам рецепт
-
-
-
-*/
-
 
 
