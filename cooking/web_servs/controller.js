@@ -16,9 +16,10 @@ const server = http.createServer((req, res) => {
     return;
   }
   console.log('search endpoint');
-  console.log('url' + req.url);
-  console.log('method' + req.method);
-  console.log(req.url.substring(0, 11));
+  console.log('url: ' + req.url);
+  console.log('method: ' + req.method);
+  console.log('method: ' + req.url.substring(0, 19));
+  
   // Обрабатываем POST-запрос по адресу /add-recipe
   if (req.method === 'POST' && req.url === '/add_recipe') {
     console.log('in /add_recipe')
@@ -53,11 +54,11 @@ const server = http.createServer((req, res) => {
 
     });
   }
-  /* http://localhost:8080/get_recipe?category=1 (лучше передавать id)
+  /* http://localhost:8080/get_recipes_by_cat?category=1 (лучше передавать id)
   query параметры
   */
-  else if(req.method === 'GET' && req.url.substring(0, 11) === '/get_recipe'){
-    console.log('in get_recipe')
+  else if(req.method === 'GET' && req.url.substring(0, 19) === '/get_recipes_by_cat'){
+    console.log('in get_recipes')
     const parsedUrl = url.parse(req.url, true);
     const category = parsedUrl.query.category;
     console.log('id caregory', category);
@@ -67,7 +68,7 @@ const server = http.createServer((req, res) => {
     
     req.on('end', async () => {
       console.log('in on end')
-      let tmp = await service.getRecipe(category);
+      let tmp = await service.getRecipes(category);
       console.log("tmp ", tmp);
       if(tmp != []){
         console.log('200');
@@ -84,6 +85,7 @@ const server = http.createServer((req, res) => {
   }
   else{
   /* Если не вошли ни в какой endpoint */
+    console.log("EndPoint not found");
     res.writeHead(404);
     res.end('EndPoint not found');
   }

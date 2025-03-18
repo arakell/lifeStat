@@ -10,13 +10,13 @@ const pool = new Pool({
 });
 
 
-async function getRecipe(category_id){
-  console.log("at getRecipe");
+async function getRecipes(category_id){
+  console.log("at getRecipes");
   const client = await pool.connect();
 
   try {
       const insertQuery = `
-        select id, name, category_id from cooking.recipes where category_id = $1 order by name;`;
+        select name from cooking.recipes where category_id = $1 order by name;`;
       //TODO попробовать в качестве категории передать ;DROP название таблицы;
 /*
     todo: поменять позиционные параметры на именованные 
@@ -86,7 +86,7 @@ async function insertRecipe(body){
 
 module.exports = {
     insertRecipe,
-    getRecipe
+    getRecipes
 };
 
 

@@ -1,6 +1,6 @@
 /* Для взаимодействий с фронтом */
 
-import { addRecipe_web } from './recipe_web.js';
+import { addRecipe_web, getRecipesByCat_web } from './recipe_web.js';
 
 /* Список категорий блюд */
 const dishesMap = new Map();
@@ -34,7 +34,7 @@ function openForm(){
 }
 
 /* При нажатии на категорию раскрывает список названий блюд */
-function showList(category) {
+async function showList(category) {
     console.log('here' + category); 
     var listDiv = document.getElementById(category + "_list");
     if (listDiv.innerHTML != "") {
@@ -46,34 +46,40 @@ function showList(category) {
     document.getElementById(category).style.backgroundColor = "#2980b9";
 
     var items;
+    var name;
     /* Вместо этого из recipe_web посылаем веб запрос */
     switch(category) {
         case "breakfasts":
-            items = breakfasts;
+            name = 'Завтраки';
             break;
         case "soups":
-            items = soups;
+            name = 'Супы';
             break;
         case "main_course":
-            items = main_course;
+            name = 'Горячее';
             break;
         case "salads":
-            items = salads;
+            name = 'Салаты';
             break;
         case "sauces":
-            items = sauces;
+            name = 'Соусы';
             break;
         case "plans":
-            items = plans;
+            name = 'Планы';
             break;
         default:
-            items = ["Пока что тут пусто"];
+            name = '';
     }
-    
+
+    items = await getRecipesByCat_web(dishesMap.get(name));
+    if(items == 'Неизвестная ошибка'){
+        alert("Что-то пошло не так");
+        return;
+    }
 
     items.forEach(item => {
         var listItem = document.createElement("div");
-        listItem.textContent = item;
+        listItem.textContent = item.name;
         listItem.className = "sub_list";
         listDiv.appendChild(listItem);
     });
