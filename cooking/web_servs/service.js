@@ -12,17 +12,15 @@ const pool = new Pool({
 });
 
 // Получение рецептов из БД по категории
-async function getRecipes(category_id){
+async function getRecipes(categoryId){
   console.log('Вошли в обработку getRecipes');
   const client = await pool.connect();
 
   try {
     
-    const query = 'SELECT * FROM recipes WHERE category_id = :categoryId';
-    const values = {
-      categoryId: categoryId
-    };
-    const response = await client.query(query, values);
+    const insertQuery = `select name from cooking.recipes where category_id = $1 order by name;`;
+    const values = [categoryId];
+    const response = await client.query(insertQuery, values);
     console.log('Данные получены');
     return response.rows;
   
