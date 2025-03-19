@@ -1,9 +1,15 @@
+/************************************************************
+ *************** Обработка входящих запросов ****************
+ ************************************************************/
+
 const service = require('./service.js'); 
 const http = require('http');
 const url = require('url');
 
 const server = http.createServer((req, res) => {
-  console.log("");
+  console.log('');
+  console.log('Начало обработки запроса');
+
   // Настройка CORS (разрешаем запросы с любого источника)
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST');
@@ -15,77 +21,67 @@ const server = http.createServer((req, res) => {
     res.end();
     return;
   }
-  console.log('search endpoint');
+
   console.log('url: ' + req.url);
   console.log('method: ' + req.method);
-  console.log('method: ' + req.url.substring(0, 19));
   
-  // Обрабатываем POST-запрос по адресу /add-recipe
+  // POST-запрос /add-recipe
   if (req.method === 'POST' && req.url === '/add_recipe') {
-    console.log('in /add_recipe')
+    console.log('Вошли в POST /add_recipe')
     let body = '';
     req.on('data', chunk => {
       body += chunk.toString();
     });
 
     req.on('end', async () => {
-      console.log("got body:");
+      console.log('Получили тело запроса:');
       console.log(body);
 
       tmp = await service.insertRecipe(body);
+      console.log('Статус ответа ' + tmp);
 
-      console.log("tmp");
-      console.log(tmp);
       if(tmp == 200){
-        console.log('200');
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end('Успешно добавлено в БД.');    
       }
       else if (tmp == 400 ){
-        console.log('400');
         res.writeHead(400, {'Content-Type': 'text/plain'});
         res.end('Неуникальное имя рецепта.');   
       }
       else{
-        console.log('500');
         res.writeHead(500, {'Content-Type': 'text/plain'});
         res.end('Неизвестная ошибка');
       };
 
     });
   }
-  /* http://localhost:8080/get_recipes_by_cat?category=1 (лучше передавать id)
-  query параметры
-  */
+  // GET запрос /get_recipes_by_cat?category=VALUE
   else if(req.method === 'GET' && req.url.substring(0, 19) === '/get_recipes_by_cat'){
-    console.log('in get_recipes')
+    console.log('Вошли в GET /get_recipes_by_cat')
     const parsedUrl = url.parse(req.url, true);
     const category = parsedUrl.query.category;
-    console.log('id caregory', category);
+    console.log('id caregory ' + category);
 
     req.on('data', () => {
     });
     
     req.on('end', async () => {
-      console.log('in on end')
       let tmp = await service.getRecipes(category);
-      console.log("tmp ", tmp);
+      console.log('Ответ ' + tmp);
       if(tmp != []){
-        console.log('200');
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end(JSON.stringify(tmp));    
       }  
       else{
-        console.log('500');
         res.writeHead(500, {'Content-Type': 'text/plain'});
         res.end('Неизвестная ошибка');
       };
 
     });
   }
+  // Endpoint не нашёлся
   else{
-  /* Если не вошли ни в какой endpoint */
-    console.log("EndPoint not found");
+    console.log('EndPoint не найден');
     res.writeHead(404);
     res.end('EndPoint not found');
   }
