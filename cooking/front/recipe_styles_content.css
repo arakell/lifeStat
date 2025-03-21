@@ -91,3 +91,7 @@ textarea {
   width: 200px;
   height: 40px;
 }
+
+#recipe_content{
+  white-space: pre-wrap;
+}
