@@ -55,3 +55,30 @@ export const getRecipesByCat_web = async (category_id) => {
       return 'Неизвестная ошибка';
     }
 };
+
+// Запрос рецепта по наименованию
+export const getRecipeByName_web = async (name) => {
+
+    /* Забираем с БД ВСЁ */
+
+    try {
+
+        let response = await fetch(
+            'http://localhost:8080/get_recipes_by_cat?category=' + category_id, 
+            {
+                method: 'GET'
+            }
+        );
+    
+        console.log('Прошёл запрос на получение рецептой в категории, статус ответа: ' + response.status);
+        if (response.status == 200) {
+            return await response.json();
+        } else{
+            return 'Неизвестная ошибка';
+        }
+
+    } catch (err) {
+      return 'Неизвестная ошибка';
+    }
+};
+

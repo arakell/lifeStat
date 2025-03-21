@@ -109,6 +109,11 @@ async function addRecipe(){
 
 }
 
+// Открыть рецепт
+async function openRecipe(value){
+    alert(value);
+}
+
 // Добавление обработчиков событий 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Загрузка страницы');
@@ -122,6 +127,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('salads').addEventListener('click', ()  => showList('salads'));
     document.getElementById('sauces').addEventListener('click', ()  => showList('sauces'));
     document.getElementById('plans').addEventListener('click', ()  => showList('plans'));
+
+    document.getElementById('breakfasts_list').addEventListener('click', event => openRecipe(event.target.textContent));
+    document.getElementById('soups_list').addEventListener('click', event => openRecipe(event.target.textContent));
+    document.getElementById('main_course_list').addEventListener('click', event => openRecipe(event.target.textContent));
+    document.getElementById('salads_list').addEventListener('click', event => openRecipe(event.target.textContent));
+    document.getElementById('sauces_list').addEventListener('click', event => openRecipe(event.target.textContent));
+    document.getElementById('plans_list').addEventListener('click', event => openRecipe(event.target.textContent));
+
 });
 
 // Закрытие раскрытых списков
