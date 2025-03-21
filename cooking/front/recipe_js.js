@@ -22,15 +22,8 @@ dishesMap.set('plans', 6);
 // Смена формы с "Добавления" на "Просмотр рецепта"
 function openForm(){
 
-    
-    if ( document.getElementById('addForm').style.display == 'none' || document.getElementById('addForm').style.display == '') {
-        document.getElementById('tutorials').style.display = 'none';
-        document.getElementById('addForm').style.display = 'flex';
-        return;
-    }
-
-    document.getElementById('tutorials').style.display = 'block';
-    document.getElementById('addForm').style.display = 'none';
+    document.querySelector('.tutorials').classList.toggle('hidden');
+    document.querySelector('.addForm').classList.toggle('hidden');
     
 }
 

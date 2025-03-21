@@ -7,17 +7,16 @@
   text-align: justify;
 }
 
-.tutorials_hidden {
-  /*display: none;*/
-}
-  
-.addForm_hidden {
-  /*display: flex;*/
-  display: none;
+.addForm {
+  display: flex;
   flex-direction: column;
   gap: 10px;
   margin-top: 10%;
   align-items: center;
+}
+
+.hidden {
+  display : none;
 }
 
 input[type="text"] {
