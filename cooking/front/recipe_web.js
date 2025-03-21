@@ -44,7 +44,7 @@ export const getRecipesByCat_web = async (category_id) => {
             }
         );
     
-        console.log('Прошёл запрос на получение рецептой в категории, статус ответа: ' + response.status);
+        console.log('Прошёл запрос на получение рецептов в категории, статус ответа: ' + response.status);
         if (response.status == 200) {
             return await response.json();
         } else{
@@ -59,18 +59,16 @@ export const getRecipesByCat_web = async (category_id) => {
 // Запрос рецепта по наименованию
 export const getRecipeByName_web = async (name) => {
 
-    /* Забираем с БД ВСЁ */
-
     try {
 
         let response = await fetch(
-            'http://localhost:8080/get_recipes_by_cat?category=' + category_id, 
+            'http://localhost:8080/get_recipe_by_name?name=' + name, 
             {
                 method: 'GET'
             }
         );
     
-        console.log('Прошёл запрос на получение рецептой в категории, статус ответа: ' + response.status);
+        console.log('Прошёл запрос на получение рецепта по наименованию, статус ответа: ' + response.status);
         if (response.status == 200) {
             return await response.json();
         } else{

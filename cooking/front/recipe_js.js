@@ -2,7 +2,7 @@
  *************** Для взаимодействий с фронтом ***************
  ************************************************************/
 
-import { addRecipe_web, getRecipesByCat_web } from './recipe_web.js';
+import { addRecipe_web, getRecipesByCat_web, getRecipeByName_web } from './recipe_web.js';
 
 // Список категорий блюд 
 const dishesMap = new Map();
@@ -110,8 +110,19 @@ async function addRecipe(){
 }
 
 // Открыть рецепт
-async function openRecipe(value){
-    alert(value);
+async function openRecipe(name){
+    console.log('Открыть рецепт ' + name);
+
+    var items = await getRecipeByName_web(name);
+    if(items == 'Неизвестная ошибка'){
+        alert('Запрос завершился ошибкой');
+        return;
+    }
+
+    items.forEach(item => {
+        document.getElementById('recipe_name').textContent = item.name;
+        document.getElementById('recipe_content').textContent = item.content;
+    });
 }
 
 // Добавление обработчиков событий 
