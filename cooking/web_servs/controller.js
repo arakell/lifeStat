@@ -79,6 +79,31 @@ const server = http.createServer((req, res) => {
 
     });
   }
+  
+  // GET запрос /get_recipe_by_name?name=VALUE
+  else if(req.method === 'GET' && req.url.substring(0, 19) === '/get_recipe_by_name'){
+    console.log('Вошли в GET /get_recipe_by_name')
+    const parsedUrl = url.parse(req.url, true);
+    const name = parsedUrl.query.name;
+    console.log('name ' + name);
+
+    req.on('data', () => {
+    });
+    
+    req.on('end', async () => {
+      let tmp = await service.getRecipeByName(name);
+      console.log('Ответ ' + tmp);
+      if(tmp != []){
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.end(JSON.stringify(tmp));    
+      }  
+      else{
+        res.writeHead(500, {'Content-Type': 'text/plain'});
+        res.end('Неизвестная ошибка');
+      };
+
+    });
+  }
   // Endpoint не нашёлся
   else{
     console.log('EndPoint не найден');

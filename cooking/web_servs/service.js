@@ -72,9 +72,33 @@ async function insertRecipe(body){
 
 }
 
+// Получение рецепта из БД по наименованию
+async function getRecipeByName(name){
+  console.log('Вошли в обработку getRecipeByName');
+  const client = await pool.connect();
+
+  try {
+    
+    const insertQuery = `select * from cooking.recipes where name = $1;`;
+    const values = [name];
+    const response = await client.query(insertQuery, values);
+    console.log('Данные получены');
+    return response.rows;
+  
+  } catch (err) {
+    console.error('Ошибка при выполнении запроса:', err);
+    return [];
+  } finally {
+    // Всегда освобождаем клиента
+    client.release();
+  }
+
+}
+
 module.exports = {
     insertRecipe,
-    getRecipes
+    getRecipes,
+    getRecipeByName
 };
 
 
