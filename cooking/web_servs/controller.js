@@ -2,7 +2,9 @@
  *************** Обработка входящих запросов ****************
  ************************************************************/
 
-const service = require('./service.js'); 
+const service = require('./service.js');
+const dotenv = require('dotenv');
+dotenv.config({ path: '../.env' });
 const http = require('http');
 const url = require('url');
 
@@ -113,8 +115,8 @@ const server = http.createServer((req, res) => {
 });
 
 // Запуск сервера
-const PORT = 8080;
+const PORT = process.env.PORT;
 server.listen(PORT, () => {
-  console.log(`Сервер запущен на порту ${PORT}`);
+  console.log('Сервер запущен на порту ' + PORT);
 });
 

@@ -1,14 +1,15 @@
 /******************************************************
  *************** Для веб-взаимодействий ***************
  ******************************************************/
-
+ const PORT = window.ENV.PORT;
+ const HOST = window.ENV.HOST;
 
 // Запрос на добавление рецепта
 export const addRecipe_web = async (title, recipe, category_id) => {
     try {
 
         let response = await fetch(
-            'http://localhost:8080/add_recipe', 
+            'http://' + HOST + ':' + PORT + '/add_recipe', 
             {
                 method: 'POST',
                 body: JSON.stringify({
@@ -38,7 +39,7 @@ export const getRecipesByCat_web = async (category_id) => {
     try {
 
         let response = await fetch(
-            'http://localhost:8080/get_recipes_by_cat?category=' + category_id, 
+            'http://' + HOST + ':' + PORT + '/get_recipes_by_cat?category=' + category_id, 
             {
                 method: 'GET'
             }
@@ -62,7 +63,7 @@ export const getRecipeByName_web = async (name) => {
     try {
 
         let response = await fetch(
-            'http://localhost:8080/get_recipe_by_name?name=' + name, 
+            'http://' + HOST + ':' + PORT + '/get_recipe_by_name?name=' + name, 
             {
                 method: 'GET'
             }
