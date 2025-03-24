@@ -1,3 +1,6 @@
+Создать БД life_stats
+Схему cooking
+
 CREATE TABLE cooking.categories (
     id SERIAL PRIMARY KEY,        
     name VARCHAR(50) UNIQUE NOT NULL
