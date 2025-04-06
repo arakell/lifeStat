@@ -10,10 +10,10 @@
 
 Инструкция по запуску:
 
-front
-cd cooking/front
-serve -l 3000
+front  
+cd cooking/front  
+serve -l 3000  
 
-back
-cd cooking/web_servs
-node controller.js
+back  
+cd cooking/web_servs  
+node controller.js  
