@@ -17,12 +17,12 @@ services:
 
   backend:
     build:
-      context: ./backend
+      context: ./cooking/web_servs/
     networks:
       - dev
 
   frontend:
     build:
-      context: ./frontend
+      context: ./authorization/front/
     networks:
       - dev
