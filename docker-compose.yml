@@ -12,17 +12,17 @@ services:
     depends_on:
       - backend
       - frontend
-    networds:
+    networks:
       - dev
 
   backend:
     build:
       context: ./backend
-    networds:
+    networks:
       - dev
 
   frontend:
     build:
       context: ./frontend
-    networds:
+    networks:
       - dev
