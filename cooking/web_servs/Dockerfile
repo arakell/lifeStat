@@ -1,10 +1,10 @@
-#FROM node:22.14.0
+FROM node:22.14.0
 
-#WORKDIR /app/cooking
-#COPY cooking/package-lock.json/ ./
-#COPY cooking/package.json/ ./
-#RUN npm install
+COPY ../cooking/package-lock.json/ .
+COPY ../cooking/package.json/ .
+COPY ../cooking/.evn/ .
+RUN npm install
 
-#COPY cooking/web_servs/ /web_servs/
+COPY . /web_servs/
 
-#CMD ["node", "controller.js"]
+CMD ["node", "controller.js"]
