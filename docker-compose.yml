@@ -15,11 +15,11 @@ services:
     networks:
       - dev
 
-  backend:
-    build:
-      context: cooking/
-    networks:
-      - dev
+  #backend:
+  #  build:
+  #    context: cooking/
+  #  networks:
+  #    - dev
 
   frontend:
     build:
