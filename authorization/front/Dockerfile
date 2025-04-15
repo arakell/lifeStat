@@ -5,7 +5,7 @@ FROM nginx:alpine
 #WORKDIR /usr/share/nginx/html
 
 # Копируем файлы из директории authorization/front в директорию /usr/share/nginx/html/authorization
-COPY authorization/front authorization/front/
+COPY . authorization/front/
 
 # Копируем файлы из директории cooking/front в директорию /usr/share/nginx/html/cooking
 #COPY cooking/front/ ./cooking/

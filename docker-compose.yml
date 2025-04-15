@@ -23,6 +23,6 @@ services:
 
   frontend:
     build:
-      context: .
+      context: authorization/front/
     networks:
       - dev
