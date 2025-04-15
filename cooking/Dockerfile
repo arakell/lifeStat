@@ -1,5 +1,6 @@
 FROM node:22.14.0
 
+WORKDIR /usr/app
 COPY package-lock.json .
 COPY package.json .
 COPY .env .
