@@ -115,6 +115,7 @@ const server = http.createServer((req, res) => {
 });
 
 // Запуск сервера
+//TODO прописать явно localhost
 const PORT = process.env.PORT;
 server.listen(PORT, () => {
   console.log('Сервер запущен на порту ' + PORT);

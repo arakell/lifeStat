@@ -8,7 +8,7 @@ function signIn(){
     hashedPassword = sha256(hashedPassword)
 
     if(login === '1' && hashedPassword === storedPassword ){
-        window.location.href = '/cooking/front/cooking.html';
+        window.location.href = '../../cooking/front/cooking.html';
     } else {
         alert('Неверный логин или пароль');
     }
