@@ -1,14 +1,15 @@
+#Докер файл для фронта
+
 # Используем официальный образ Nginx как базовый
 FROM nginx:alpine
 
-# Копируем файлы из директории authorization/front в директорию /usr/share/nginx/html/authorization
-COPY /authorization/ /authorization/
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# Копируем файлы из директории cooking/front в директорию /usr/share/nginx/html/cooking
-COPY /cooking/front/ cooking/front
+COPY /authorization /authorization
 
-# Копируем файл конфигурации Nginx из директории authorization/front
-COPY /authorization/front/nginx.conf /etc/nginx/conf.d/default.conf
+COPY /cooking/front cooking/front
+
+COPY index.html index.html
 
 # Открываем порт 3000
 EXPOSE 3000

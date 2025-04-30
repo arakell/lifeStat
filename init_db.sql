@@ -1,5 +1,14 @@
-Создать БД life_stats
-Схему cooking
+--Создать БД life_stats
+--Схему cooking
+
+-- 1. Создаем базу данных (если не существует)
+CREATE DATABASE lifeStat;
+
+-- 2. Подключаемся к созданной БД
+\c lifestat
+
+-- 3. Создаем схему cooking
+CREATE SCHEMA cooking;
 
 CREATE TABLE cooking.categories (
     id SERIAL PRIMARY KEY,        
