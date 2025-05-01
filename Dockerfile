@@ -9,7 +9,7 @@ COPY index.html /usr/share/nginx/html/
 COPY ./authorization /usr/share/nginx/html/authorization
 COPY ./cooking/front /usr/share/nginx/html/cooking/front
 
-# Открываем порт 3000
+# Открываем порт 80
 EXPOSE 80
 
 # Запускаем Nginx
