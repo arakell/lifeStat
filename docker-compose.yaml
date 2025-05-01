@@ -1,7 +1,7 @@
 version: '3.3'
 
-volumes:
-  db_data:
+#volumes:
+#  db_data:
 
 networks:
   app-network:
@@ -17,27 +17,27 @@ services:
     networks:
       - app-network
 
-  backend:
-    build: 
-      context: ./cooking
-    ports:
-      - "3000:3000"
-    environment:
-      DB_HOST: db
-    depends_on:
-      db:
-        condition: service_healthy #запускает бэк только когда БД готова
-    networks:
-      - app-network
+  #backend:
+  #  build: 
+  #    context: ./cooking
+  #  ports:
+  #    - "3000:3000"
+  #  environment:
+  #    DB_HOST: db
+  #  depends_on:
+  #    db:
+  #      condition: service_healthy #запускает бэк только когда БД готова
+  #  networks:
+  #    - app-network
 
-  db:
-    image: postgres:15
-    env_file: .env.db
-    volumes:
-      - db_data:/var/lib/postgresql/data
-      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
-    healthcheck: # проверка готовности БД
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-    networks:
-      - app-network
+  #db:
+  #  image: postgres:15
+  #  env_file: .env.db
+  #  volumes:
+  #    - db_data:/var/lib/postgresql/data
+  #    - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+  #   healthcheck: # проверка готовности БД
+  #    test: ["CMD-SHELL", "pg_isready -U postgres"]
+  #  networks:
+  #    - app-network
 
