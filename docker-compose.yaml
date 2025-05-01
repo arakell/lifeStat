@@ -9,11 +9,14 @@ networks:
 
 services:
 
+  
+
   frontend:
     build: 
       context: /root/lifeStat
+    env_file: /root/fileStat/.env
     ports:
-      - "80:80"
+      - "${FRONTEND_PORT}:80"
     networks:
       - app-network
 
